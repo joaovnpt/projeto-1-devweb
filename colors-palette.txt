@@ -1,0 +1,5 @@
+blue: #193F6E
+gray: #91949C
+green: #135762
+light-gray: #BAB3AB
+off-white: #DDDED9

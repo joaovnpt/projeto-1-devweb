@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive } from "vue";
 
-const title = ref("Seu perfil");
+const title = ref("Your profile");
 const user = reactive({
   name: "",
   email: "",
@@ -11,6 +11,7 @@ const user = reactive({
   adress: "",
   city: [],
   states: [
+    "Your state",
     "AC",
     "AL",
     "AP",
@@ -74,13 +75,69 @@ const user = reactive({
       <input type="date" name="birthDate" id="birthDate" v-model="birthDate">
       <label for="adress">Adress</label>
       <input type="text" name="adress" id="adress" v-model="adress">
-      <select name="" id="slctStates">
+      <label for="slctStates">State</label>
+      <select name="slctStates" id="slctStates">
         <option v-for="item in user.states" :key="item" value="">
           {{ item }}
         </option>
       </select>
+      <button type="submit" classs="submit-btn">Submit</button>
     </form>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #DDDED9;
+}
+
+h1 {
+  font-family: "Work sans";
+  font-weight: bold;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px;
+  background-color: rgb(250, 250, 250);
+  border-radius: 30px;
+  margin: 10px 0 10px 0;
+}
+
+input {
+  height: 35px;
+  width: 200px;
+  border-radius: 10px;
+  border-color: #BAB3AB;
+  font-family: "Work sans";
+  margin: 2px 10px 15px 5px; /*Top, right, bottom, left*/
+  padding: 0px 0px 0px 10px;
+}
+
+label {
+  display: flex;
+  align-self:flex-start;
+  font-family: "Work sans";
+  margin: 0px 0px 0px 10px;
+  font-size: 0.9rem;
+}
+
+select {
+  width: 120px;
+  height: 30px;
+  border-radius: 5px;
+  font-family: "Work sans";
+  align-self: flex-start;
+  margin: 2px 10px 15px 5px;
+}
+</style>
