@@ -9,44 +9,43 @@ const user = reactive({
   confirmPassword: "",
   birthDate: "",
   adress: "",
-  city: [],
-  states: [
-    "Your state",
-    "AC",
-    "AL",
-    "AP",
-    "AM",
-    "BA",
-    "CE",
-    "DF",
-    "ES",
-    "GO",
-    "MA",
-    "MT",
-    "MS",
-    "MG",
-    "PA",
-    "PB",
-    "PR",
-    "PE",
-    "PI",
-    "RJ",
-    "RN",
-    "RS",
-    "RO",
-    "RR",
-    "SC",
-    "SP",
-    "SE",
-    "TO",
-  ],
+  city: "",
+  selectedState: "",
   hobbies: "",
-  programmingLanguages: [
-
-  ],
+  programmingLanguages: [],
   language: "",
-  biography: ""
+  biography: "",
 });
+
+const states = [
+  { uf: "AC", name: "Acre" },
+  { uf: "AL", name: "Alagoas" },
+  { uf: "AP", name: "Amapá" },
+  { uf: "AM", name: "Amazonas" },
+  { uf: "BA", name: "Bahia" },
+  { uf: "CE", name: "Ceará" },
+  { uf: "DF", name: "Distrito Federal" },
+  { uf: "ES", name: "Espírito Santo" },
+  { uf: "GO", name: "Goiás" },
+  { uf: "MA", name: "Maranhão" },
+  { uf: "MT", name: "Mato Grosso" },
+  { uf: "MS", name: "Mato Grosso do Sul" },
+  { uf: "MG", name: "Minas Gerais" },
+  { uf: "PA", name: "Pará" },
+  { uf: "PB", name: "Paraíba" },
+  { uf: "PR", name: "Paraná" },
+  { uf: "PE", name: "Pernambuco" },
+  { uf: "PI", name: "Piauí" },
+  { uf: "RJ", name: "Rio de Janeiro" },
+  { uf: "RN", name: "Rio Grande do Norte" },
+  { uf: "RS", name: "Rio Grande do Sul" },
+  { uf: "RO", name: "Rondônia" },
+  { uf: "RR", name: "Roraima" },
+  { uf: "SC", name: "Santa Catarina" },
+  { uf: "SP", name: "São Paulo" },
+  { uf: "SE", name: "Sergipe" },
+  { uf: "TO", name: "Tocantins" },
+];
 
 function addLanguage() {
   if (user.language != 0) {
@@ -55,9 +54,14 @@ function addLanguage() {
   }
 }
 
-
 function delLanguage(index) {
   user.programmingLanguages.splice(index, 1);
+}
+
+let btnActivated = ref(false);
+
+function showResult() {
+  btnActivated.value = !btnActivated.value;
 }
 </script>
 
@@ -66,51 +70,115 @@ function delLanguage(index) {
     <h1 class="title">{{ title }}</h1>
     <form action="" class="form">
       <label for="name">Name</label>
-      <input type="text" id="name" v-model="user.name">
+      <input type="text" id="name" v-model="user.name" />
       <label for="email">E-mail</label>
-      <input type="email" name="email" id="email" v-model="user.email">
+      <input type="email" name="email" id="email" v-model="user.email" />
       <label for="password">Password</label>
-      <input type="password" name="password" id="password" v-model="user.password">
+      <input
+        type="password"
+        name="password"
+        id="password"
+        v-model="user.password"
+      />
       <label for="confirmPassword">Confirm password</label>
-      <input type="password" name="confirmPassword" id="confirmPassword" v-model="user.confirmPassword">
+      <input
+        type="password"
+        name="confirmPassword"
+        id="confirmPassword"
+        v-model="user.confirmPassword"
+      />
       <label for="birthDate">Birth date</label>
-      <input type="date" name="birthDate" id="birthDate" v-model="user.birthDate">
+      <input
+        type="date"
+        name="birthDate"
+        id="birthDate"
+        v-model="user.birthDate"
+      />
       <label for="adress">Adress</label>
-      <input type="text" name="adress" id="adress" v-model="user.adress">
+      <input type="text" name="adress" id="adress" v-model="user.adress" />
       <label for="slctStates">State</label>
-      <select name="slctStates" id="slctStates">
-        <option v-for="item in user.states" :key="item" value="">
-          {{ item }}
+      <select name="slctStates" id="slctStates" v-model="user.selectedState">
+        <option value="" disabled selected>Select a state</option>
+        <option v-for="state of states" :key="state.uf">
+          {{ state.name }}
         </option>
       </select>
+      <label for="city">City:</label>
+      <input type="text" name="city" id="city" v-model="user.city" />
       <label for="hobbies">Hobbies</label>
-      <input type="text" name="hobbies" id="hobbies" v-model="hobbies">
+      <input type="text" name="hobbies" id="hobbies" v-model="user.hobbies" />
       <label for="programmingLanguages">Programming Languages</label>
       <div class="prog">
-        <input type="text" name="programmingLanguages" id="programmingLanguages" v-model="user.language">
-        <button type="button" @click="addLanguage()" class="add-programming-languages-btn">Add</button>
+        <input
+          type="text"
+          name="programmingLanguages"
+          id="programmingLanguages"
+          v-model="user.language"
+        />
+        <button
+          type="button"
+          @click="addLanguage()"
+          class="add-programming-languages-btn"
+        >
+          Add
+        </button>
       </div>
       <ul>
-        <li v-for="(language, index) in user.programmingLanguages" :key="language">{{ language }}
-          <button class="del-button" @click="delLanguage(index)" type="button"><i class="fa fa-trash-o"></i></button>
+        <li
+          v-for="(language, index) in user.programmingLanguages"
+          :key="language"
+        >
+          {{ language }}
+          <button class="del-button" @click="delLanguage(index)" type="button">
+            <i class="fa fa-trash-o"></i>
+          </button>
         </li>
       </ul>
       <label for="biography">Biography</label>
-      <textarea name="biography" id="biography" cols="30" rows="10" v-model="biography"></textarea>
-      <button type="submit" class="submit-btn">Submit</button>
+      <textarea
+        name="biography"
+        id="biography"
+        cols="30"
+        rows="10"
+        v-model="user.biography"
+      ></textarea>
+      <button @click="showResult()" type="button" class="show-result-bnt">
+        Show result
+      </button>
     </form>
+
+    <div v-if="btnActivated" class="form">
+      <p>Name:</p>
+      {{ user.name }}
+      <p>E-mail:</p>
+      {{ user.email }}
+      <p>Password</p>
+      {{ user.password }}
+      <p>Birth Date:</p>
+      {{ user.birthDate }}
+      <p>Adress:</p>
+      {{ user.adress }}
+      <p>State:</p>
+      {{ user.selectedState }}
+      <p>City:</p>
+      {{ user.city }}
+      <p>Programming Languages:</p>
+      {{ user.programmingLanguages }}
+      <p>Biography:</p>
+      {{ user.biography }}
+    </div>
   </div>
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #DDDED9;
+  background-color: #ddded9;
 }
 
 h1 {
@@ -136,7 +204,7 @@ input {
   height: 35px;
   width: 200px;
   border-radius: 10px;
-  border-color: #BAB3AB;
+  border-color: #bab3ab;
   font-family: "Work sans";
   margin: 2px 10px 15px 5px;
   /*Top, right, bottom, left*/
@@ -178,7 +246,7 @@ select {
   margin: 2px 10px 0px 2px;
   width: 50px;
   height: 38px;
-  border-color: #BAB3AB;
+  border-color: #bab3ab;
   cursor: pointer;
   transition: 100ms ease-out;
 }
@@ -194,7 +262,7 @@ select {
   transition: 100ms;
 }
 
-.submit-btn {
+.show-result-bnt {
   align-self: center;
   cursor: pointer;
 }
@@ -228,8 +296,7 @@ li {
   cursor: pointer;
   align-self: end;
   font-size: 1rem;
-  transition: 100ms ease-in-out
-  
+  transition: 100ms ease-in-out;
 }
 
 .del-button:hover {
@@ -240,7 +307,7 @@ li {
 
 textarea {
   border-radius: 10px;
-  border-color: #BAB3AB;
+  border-color: #bab3ab;
   font-family: "Work sans";
   margin: 2px 10px 15px 5px;
   /*Top, right, bottom, left*/
