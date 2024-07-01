@@ -67,105 +67,129 @@ function showResult() {
 
 <template>
   <div class="container">
-    <h1 class="title">{{ title }}</h1>
     <form action="" class="form">
-      <label for="name">Name</label>
-      <input type="text" id="name" v-model="user.name" />
-      <label for="email">E-mail</label>
-      <input type="email" name="email" id="email" v-model="user.email" />
-      <label for="password">Password</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        v-model="user.password"
-      />
-      <label for="confirmPassword">Confirm password</label>
-      <input
-        type="password"
-        name="confirmPassword"
-        id="confirmPassword"
-        v-model="user.confirmPassword"
-      />
-      <label for="birthDate">Birth date</label>
-      <input
-        type="date"
-        name="birthDate"
-        id="birthDate"
-        v-model="user.birthDate"
-      />
-      <label for="adress">Adress</label>
-      <input type="text" name="adress" id="adress" v-model="user.adress" />
-      <label for="slctStates">State</label>
-      <select name="slctStates" id="slctStates" v-model="user.selectedState">
-        <option value="" disabled selected>Select a state</option>
-        <option v-for="state of states" :key="state.uf">
-          {{ state.name }}
-        </option>
-      </select>
-      <label for="city">City:</label>
-      <input type="text" name="city" id="city" v-model="user.city" />
-      <label for="hobbies">Hobbies</label>
-      <input type="text" name="hobbies" id="hobbies" v-model="user.hobbies" />
-      <label for="programmingLanguages">Programming Languages</label>
-      <div class="prog">
+      <h1 class="title">{{ title }}</h1>
+      <div class="inputs">
+        <label for="name">Name</label>
+        <input type="text" id="name" v-model="user.name" />
+        <label for="email">E-mail</label>
+        <input type="email" name="email" id="email" v-model="user.email" />
+        <label for="password">Password</label>
         <input
-          type="text"
-          name="programmingLanguages"
-          id="programmingLanguages"
-          v-model="user.language"
+          type="password"
+          name="password"
+          id="password"
+          v-model="user.password"
         />
-        <button
-          type="button"
-          @click="addLanguage()"
-          class="add-programming-languages-btn"
-        >
-          Add
-        </button>
-      </div>
-      <ul>
-        <li
-          v-for="(language, index) in user.programmingLanguages"
-          :key="language"
-        >
-          {{ language }}
-          <button class="del-button" @click="delLanguage(index)" type="button">
-            <i class="fa fa-trash-o"></i>
+        <label for="confirmPassword">Confirm password</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          v-model="user.confirmPassword"
+        />
+        <label for="birthDate">Birth date</label>
+        <input
+          type="date"
+          name="birthDate"
+          id="birthDate"
+          v-model="user.birthDate"
+        />
+        <label for="adress">Adress</label>
+        <input type="text" name="adress" id="adress" v-model="user.adress" />
+        <label for="slctStates">State</label>
+        <select name="slctStates" id="slctStates" v-model="user.selectedState">
+          <option value="" disabled selected>Select a state</option>
+          <option v-for="state of states" :key="state.uf">
+            {{ state.name }}
+          </option>
+        </select>
+        <label for="city">City:</label>
+        <input type="text" name="city" id="city" v-model="user.city" />
+        <label for="hobbies">Hobbies</label>
+        <input type="text" name="hobbies" id="hobbies" v-model="user.hobbies" />
+        <label for="programmingLanguages">Programming Languages</label>
+        <div class="prog">
+          <input
+            type="text"
+            name="programmingLanguages"
+            id="programmingLanguages"
+            v-model="user.language"
+          />
+          <button
+            type="button"
+            @click="addLanguage()"
+            class="add-programming-languages-btn"
+          >
+            Add
           </button>
-        </li>
-      </ul>
-      <label for="biography">Biography</label>
-      <textarea
-        name="biography"
-        id="biography"
-        cols="30"
-        rows="10"
-        v-model="user.biography"
-      ></textarea>
+        </div>
+        <ul>
+          <li
+            v-for="(language, index) in user.programmingLanguages"
+            :key="language"
+          >
+            {{ language }}
+            <button
+              class="del-button"
+              @click="delLanguage(index)"
+              type="button"
+            >
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </li>
+        </ul>
+        <label for="biography">Biography</label>
+        <textarea
+          name="biography"
+          id="biography"
+          cols="25"
+          rows="10"
+          v-model="user.biography"
+        ></textarea>
+      </div>
       <button @click="showResult()" type="button" class="show-result-bnt">
         Show result
       </button>
     </form>
 
-    <div v-if="btnActivated" class="form">
-      <p>Name:</p>
-      {{ user.name }}
-      <p>E-mail:</p>
-      {{ user.email }}
-      <p>Password</p>
+    <div v-if="btnActivated" class="form" id="results-form">
+      <div class="result-item">
+        <p>Name:</p>
+        {{ user.name }}
+      </div>
+      <div class="result-item">
+        <p>E-mail:</p>
+        {{ user.email }}
+      </div>
+      <div class="result-item">
+        <p>Password:</p>
       {{ user.password }}
-      <p>Birth Date:</p>
-      {{ user.birthDate }}
-      <p>Adress:</p>
-      {{ user.adress }}
-      <p>State:</p>
-      {{ user.selectedState }}
-      <p>City:</p>
-      {{ user.city }}
-      <p>Programming Languages:</p>
-      {{ user.programmingLanguages }}
-      <p>Biography:</p>
-      {{ user.biography }}
+    </div>
+      <div class="result-item">
+        <p>Birth Date:</p>
+        {{ user.birthDate }}
+      </div>
+      <div class="result-item">
+        <p>Adress:</p>
+        {{ user.adress }}
+      </div>
+      <div class="result-item">
+        <p>State:</p>
+        {{ user.selectedState }}
+      </div>
+      <div class="result-item">
+        <p>City:</p>
+        {{ user.city }}
+      </div>
+      <div class="result-item">
+        <p>Programming Languages:</p>
+        {{ user.programmingLanguages }}
+      </div>
+      <div class="result-item">
+        <p>Biography:</p>
+        {{ user.biography }}
+      </div>
     </div>
   </div>
 </template>
@@ -175,10 +199,15 @@ function showResult() {
 
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   background-color: #ddded9;
+}
+
+.title {
+  display: flex;
+  margin: 0px 0px 30px 0px;
 }
 
 h1 {
@@ -187,17 +216,25 @@ h1 {
 }
 
 .form {
+  font-family: "Work sans";
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
   width: fit-content;
+  width: 350px;
   padding: 40px;
   background-color: rgb(250, 250, 250);
   border-radius: 30px;
-  margin: 10px 0 10px 0;
+  margin: 10px 50px 10px 50px;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.3);
   /* offset-x, offset-y, blur-radius, spread-radius */
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 input {
@@ -215,7 +252,7 @@ label {
   display: flex;
   align-self: flex-start;
   font-family: "Work sans";
-  margin: 0px 0px 0px 10px;
+  margin: 0px 0px 0px 13px;
   font-size: 1rem;
 }
 
@@ -225,15 +262,12 @@ select {
   border-radius: 5px;
   font-family: "Work sans";
   align-self: flex-start;
-  margin: 2px 10px 15px 5px;
+  margin: 2px 10px 15px 13px;
 }
 
 .prog {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  align-self: flex-start;
 }
 
 #programmingLanguages {
@@ -309,8 +343,21 @@ textarea {
   border-radius: 10px;
   border-color: #bab3ab;
   font-family: "Work sans";
-  margin: 2px 10px 15px 5px;
+  margin: 2px 10px 15px 10px;
   /*Top, right, bottom, left*/
   padding: 5px 0px 0px 5px;
+}
+
+#results-form > p {
+  margin: 10px 0 0 0;
+}
+
+.result-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.result-item p {
+  margin-right: .3em;
 }
 </style>
