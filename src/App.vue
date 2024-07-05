@@ -75,26 +75,11 @@ function showResult() {
         <label for="email">E-mail</label>
         <input type="email" name="email" id="email" v-model="user.email" />
         <label for="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          v-model="user.password"
-        />
+        <input type="password" name="password" id="password" v-model="user.password" />
         <label for="confirmPassword">Confirm password</label>
-        <input
-          type="password"
-          name="confirmPassword"
-          id="confirmPassword"
-          v-model="user.confirmPassword"
-        />
+        <input type="password" name="confirmPassword" id="confirmPassword" v-model="user.confirmPassword" />
         <label for="birthDate">Birth date</label>
-        <input
-          type="date"
-          name="birthDate"
-          id="birthDate"
-          v-model="user.birthDate"
-        />
+        <input type="date" name="birthDate" id="birthDate" v-model="user.birthDate" />
         <label for="adress">Adress</label>
         <input type="text" name="adress" id="adress" v-model="user.adress" />
         <label for="slctStates">State</label>
@@ -110,43 +95,22 @@ function showResult() {
         <input type="text" name="hobbies" id="hobbies" v-model="user.hobbies" />
         <label for="programmingLanguages">Programming Languages</label>
         <div class="prog">
-          <input
-            type="text"
-            name="programmingLanguages"
-            id="programmingLanguages"
-            v-model="user.language"
-          />
-          <button
-            type="button"
-            @click="addLanguage()"
-            class="add-programming-languages-btn"
-          >
+          <input type="text" name="programmingLanguages" id="programmingLanguages" v-model="user.language" />
+          <button type="button" @click="addLanguage()" class="add-programming-languages-btn">
             Add
           </button>
         </div>
         <ul>
-          <li
-            v-for="(language, index) in user.programmingLanguages"
-            :key="language"
-          >
+          <li v-for="(language, index) in user.programmingLanguages" :key="language">
             {{ language }}
-            <button
-              class="del-button"
-              @click="delLanguage(index)"
-              type="button"
-            >
+            <button class="del-button" @click="delLanguage(index)" type="button">
               <i class="fa fa-trash-o"></i>
             </button>
           </li>
         </ul>
         <label for="biography">Biography</label>
-        <textarea
-          name="biography"
-          id="biography"
-          cols="25"
-          rows="10"
-          v-model="user.biography"
-        ></textarea>
+        <textarea class="ls-textarea-autoresize" name="biography" id="biography" cols="25" rows="10"
+          v-model="user.biography"></textarea>
       </div>
       <button @click="showResult()" type="button" class="show-result-bnt">
         Show result
@@ -164,8 +128,8 @@ function showResult() {
       </div>
       <div class="result-item">
         <p>Password:</p>
-      {{ user.password }}
-    </div>
+        {{ user.password }}
+      </div>
       <div class="result-item">
         <p>Birth Date:</p>
         {{ user.birthDate }}
@@ -183,12 +147,18 @@ function showResult() {
         {{ user.city }}
       </div>
       <div class="result-item">
+        <p>Hobbies:</p>
+        {{ user.hobbies }}
+      </div>
+      <div class="result-item">
         <p>Programming Languages:</p>
         {{ user.programmingLanguages }}
       </div>
       <div class="result-item">
         <p>Biography:</p>
-        {{ user.biography }}
+        <span class="bio">
+          {{ user.biography }}
+        </span>
       </div>
     </div>
   </div>
@@ -231,6 +201,11 @@ h1 {
   /* offset-x, offset-y, blur-radius, spread-radius */
 }
 
+#results-form {
+  display: flex;
+  align-items: flex-start;
+}
+
 .inputs {
   display: flex;
   flex-direction: column;
@@ -241,11 +216,15 @@ input {
   height: 35px;
   width: 200px;
   border-radius: 10px;
-  border-color: #bab3ab;
+  border-color: #d3cdc7;
   font-family: "Work sans";
   margin: 2px 10px 15px 5px;
   /*Top, right, bottom, left*/
   padding: 0px 0px 0px 10px;
+}
+
+input:hover {
+  border-color: #b1a89f;
 }
 
 label {
@@ -260,10 +239,15 @@ select {
   width: 120px;
   height: 30px;
   border-radius: 5px;
+  background-color: #eceae8;
   font-family: "Work sans";
   align-self: flex-start;
   margin: 2px 10px 15px 13px;
 }
+
+select:hover {
+  background-color: #e6e0db;
+} 
 
 .prog {
   display: flex;
@@ -280,6 +264,7 @@ select {
   margin: 2px 10px 0px 2px;
   width: 50px;
   height: 38px;
+  background-color: #eceae8; 
   border-color: #bab3ab;
   cursor: pointer;
   transition: 100ms ease-out;
@@ -299,6 +284,16 @@ select {
 .show-result-bnt {
   align-self: center;
   cursor: pointer;
+  transition: 150ms ease-out;
+  background-color: #5783db;
+  color: white;
+  width: 120px;
+  height: 40px;
+  border-color: rgb(146, 146, 146);
+}
+
+.show-result-bnt:hover {
+  background-color: #4f79cc;
 }
 
 ul {
@@ -346,9 +341,10 @@ textarea {
   margin: 2px 10px 15px 10px;
   /*Top, right, bottom, left*/
   padding: 5px 0px 0px 5px;
+  resize: none;
 }
 
-#results-form > p {
+#results-form>p {
   margin: 10px 0 0 0;
 }
 
@@ -356,8 +352,14 @@ textarea {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin: 5px 0 5px 0;
 }
+
 .result-item p {
-  margin-right: .3em;
+  margin-right: 0.3em;
+}
+
+.bio {
+  word-break: break-all;  
 }
 </style>
